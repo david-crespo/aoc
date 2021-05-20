@@ -1,0 +1,3 @@
+advent-of-code-data
+pytest
+pytest-watch
