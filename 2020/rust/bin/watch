@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ls src/*.rs | entr cargo run
