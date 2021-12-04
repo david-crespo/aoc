@@ -24,6 +24,7 @@ function count(input: string): number {
   return c;
 }
 
+console.log("=======================");
 console.log(count(sampleInput));
 console.log(count(realInput));
 
