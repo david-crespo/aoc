@@ -30,8 +30,8 @@ const ptSeq = ([x1, y1]: Pt, [x2, y2]: Pt) => {
     }
   } else {
     // comment this part out for part 1
-    const yInc = y2 - y1 > 0 ? 1 : y2 - y1 === 0 ? 0 : -1;
-    const xInc = x2 - x1 > 0 ? 1 : x2 - x1 === 0 ? 0 : -1;
+    const yInc = Math.sign(y2 - y1);
+    const xInc = Math.sign(x2 - x1);
     for (let i = 0; i <= Math.abs(x2 - x1); i += 1) {
       result.push([x1 + i * xInc, y1 + i * yInc]);
     }
