@@ -43,13 +43,15 @@ const realInput = await getInput(import.meta.url);
 
 const parse = (input: string) => {
   return input.split("\n").flatMap((line) => {
-    const [start, end] = line.split(" -> ");
-    const [x1, y1] = start.split(",");
-    const [x2, y2] = end.split(",");
-    return ptSeq(
-      [parseInt(x1, 10), parseInt(y1, 10)],
-      [parseInt(x2, 10), parseInt(y2, 10)],
-    );
+    const match = /(\d+),(\d+) -> (\d+),(\d+)/.exec(line);
+    if (match) {
+      const [_, x1, y1, x2, y2] = match;
+      return ptSeq(
+        [parseInt(x1, 10), parseInt(y1, 10)],
+        [parseInt(x2, 10), parseInt(y2, 10)],
+      );
+    }
+    return [];
   });
 };
 
