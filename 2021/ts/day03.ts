@@ -13,7 +13,7 @@ const sampleInput = `
 01010
 `.trim();
 
-const realInput = await Deno.readTextFile("./day03/input.txt");
+const realInput = await Deno.readTextFile("./input/day03.txt");
 
 const count1s = (n: Bits) => n.filter((x) => x === "1").length;
 

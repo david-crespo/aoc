@@ -3,7 +3,7 @@
 const sampleInput = `
 `.trim();
 
-const realInput = await Deno.readTextFile("./day04/input.txt");
+const realInput = await Deno.readTextFile("./input/day04.txt");
 
 const parse = (input: string) => {
   const lines = input.split("\n");

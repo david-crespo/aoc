@@ -1,5 +1,5 @@
-import type { Pt } from "../util.ts";
-import { ptKey, range } from "../util.ts";
+import type { Pt } from "./util.ts";
+import { ptKey, range } from "./util.ts";
 
 const sampleInput = `
 7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
@@ -23,7 +23,7 @@ const sampleInput = `
  2  0 12  3  7
 `.trim();
 
-const realInput = await Deno.readTextFile("./day04/input.txt");
+const realInput = await Deno.readTextFile("./input/day04.txt");
 
 type Cell = {
   value: number;
@@ -122,6 +122,7 @@ function run(input: string) {
     for (const b of boards) {
       b.mark(d);
       if (b.bingo()) {
+        b.print();
         console.log(b.unmarkedSum() * d);
         return;
       }

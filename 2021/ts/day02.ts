@@ -7,7 +7,7 @@ down 8
 forward 2
 `.trim();
 
-const realInput = await Deno.readTextFile("./day02/input.txt");
+const realInput = await Deno.readTextFile("./input/day02.txt");
 
 type Cmd = [string, number];
 

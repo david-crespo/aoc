@@ -1,3 +1,0 @@
-#!/usr/bin/env zsh
-
-ls day*/*.ts | entr deno run --allow-read day$(printf "%02d" $1)/run.ts

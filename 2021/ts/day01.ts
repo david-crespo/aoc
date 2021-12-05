@@ -11,7 +11,7 @@ const sampleInput = `
 263
 `.trim();
 
-const realInput = await Deno.readTextFile("./day01/input.txt");
+const realInput = await Deno.readTextFile("./input/day01.txt");
 
 function count(input: string): number {
   const ns = input.split("\n").map((n) => parseInt(n, 10));
