@@ -1,3 +1,5 @@
+import { getInput } from "./util.ts";
+
 const sampleInput = `
 00100
 11110
@@ -13,7 +15,7 @@ const sampleInput = `
 01010
 `.trim();
 
-const realInput = await Deno.readTextFile("./input/day03.txt");
+const realInput = await getInput(import.meta.url);
 
 const count1s = (n: Bits) => n.filter((x) => x === "1").length;
 

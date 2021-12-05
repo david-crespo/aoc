@@ -1,3 +1,5 @@
+import { getInput } from "./util.ts";
+
 const sampleInput = `
 forward 5
 down 5
@@ -7,7 +9,7 @@ down 8
 forward 2
 `.trim();
 
-const realInput = await Deno.readTextFile("./input/day02.txt");
+const realInput = await getInput(import.meta.url);
 
 type Cmd = [string, number];
 

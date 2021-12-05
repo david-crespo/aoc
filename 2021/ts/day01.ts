@@ -1,3 +1,5 @@
+import { getInput } from "./util.ts";
+
 const sampleInput = `
 199
 200
@@ -11,7 +13,7 @@ const sampleInput = `
 263
 `.trim();
 
-const realInput = await Deno.readTextFile("./input/day01.txt");
+const realInput = await getInput(import.meta.url);
 
 function count(input: string): number {
   const ns = input.split("\n").map((n) => parseInt(n, 10));

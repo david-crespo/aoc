@@ -1,9 +1,10 @@
 // deno-lint-ignore-file
+import { getInput } from "./util.ts";
 
 const sampleInput = `
 `.trim();
 
-const realInput = await Deno.readTextFile("./input/day04.txt");
+const realInput = await getInput(import.meta.url);
 
 const parse = (input: string) => {
   const lines = input.split("\n");
