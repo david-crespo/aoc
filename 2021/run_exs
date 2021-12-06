@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+ls elixir/*.exs | entr elixir elixir/day$(printf "%02d" $1).exs
