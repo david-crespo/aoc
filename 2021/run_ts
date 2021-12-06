@@ -1,3 +1,3 @@
 #!/usr/bin/env zsh
 
-ls ts/day*.ts | entr deno run --allow-read ts/day$(printf "%02d" $1).ts
+ls ts/*.ts | entr deno run --allow-read ts/day$(printf "%02d" $1).ts
