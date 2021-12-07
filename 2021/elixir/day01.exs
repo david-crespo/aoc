@@ -21,13 +21,25 @@ parse = fn s ->
 end
 
 run = fn input ->
-  ns = parse.(input)
+  parse.(input)
+  |> Enum.chunk_every(2, 1, :discard)
+  |> Enum.count(fn [a, b] -> b > a end)
+  |> IO.inspect()
+end
+
+run2 = fn input ->
+  parse.(input)
+  |> Enum.chunk_every(3, 1, :discard)
+  |> Enum.map(&Enum.sum/1)
+  |> Enum.chunk_every(2, 1, :discard)
+  |> Enum.count(fn [a, b] -> b > a end)
+  |> IO.inspect()
 end
 
 IO.puts("=======================")
 run.(sample_input)
 run.(real_input)
 
-# IO.puts("")
-# run2(sampleInput)
-# run2(realInput)
+IO.puts("")
+run2.(sample_input)
+run2.(real_input)
