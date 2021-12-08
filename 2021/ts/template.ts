@@ -4,10 +4,11 @@ import { getInput } from "./util.ts";
 const sampleInput = `
 `.trim();
 
-const realInput = await getInput(import.meta.url);
+const realInput = (await getInput(import.meta.url)).trim();
 
 const parse = (input: string) => {
   const lines = input.split("\n");
+  return lines;
 };
 
 function run(input: string) {
