@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+ls python/*.py | entr python3 python/day$(printf "%02d" $1).py
