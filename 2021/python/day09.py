@@ -17,16 +17,14 @@ with open("input/day09.txt") as f:
 
 def neighbors(pt, grid):
     [x, y] = pt
-    result = []
     if x > 0:
-        result.append((x - 1, y))
+        yield (x - 1, y)
     if y > 0:
-        result.append((x, y - 1))
+        yield (x, y - 1)
     if x < grid.x_max:
-        result.append((x + 1, y))
+        yield (x + 1, y)
     if y < grid.y_max:
-        result.append((x, y + 1))
-    return result
+        yield (x, y + 1)
 
 
 def parse(input):

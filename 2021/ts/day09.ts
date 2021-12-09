@@ -11,23 +11,17 @@ const sampleInput = `
 
 const realInput = (await getInput(import.meta.url)).trim();
 
-const neighbors = (x: number, y: number, maxx: number, maxy: number) => {
-  const result: Pt[] = [];
-  if (x > 0) {
-    result.push([x - 1, y]);
-  }
-  if (y > 0) {
-    result.push([x, y - 1]);
-  }
-  if (x < maxx) {
-    result.push([x + 1, y]);
-  }
-  if (y < maxy) {
-    result.push([x, y + 1]);
-  }
-
-  return result;
-};
+function* neighbors(
+  x: number,
+  y: number,
+  maxx: number,
+  maxy: number,
+): Generator<Pt> {
+  if (x > 0) yield [x - 1, y];
+  if (y > 0) yield [x, y - 1];
+  if (x < maxx) yield [x + 1, y];
+  if (y < maxy) yield [x, y + 1];
+}
 
 const parse = (input: string) => {
   const lines = input
@@ -43,8 +37,10 @@ function getLowPoints(board: number[][]) {
   const lowPoints: Pt[] = [];
   for (let y = 0; y <= maxy; y++) {
     for (let x = 0; x <= maxx; x++) {
-      const ns = neighbors(x, y, maxx, maxy).map(([x, y]) => board[y][x]);
       const value = board[y][x];
+      const ns = Array.from(neighbors(x, y, maxx, maxy)).map(
+        ([x, y]) => board[y][x],
+      );
       if (ns.every((v) => v > value)) {
         lowPoints.push([x, y]);
       }
@@ -66,7 +62,7 @@ function run(input: string) {
 function getBasin([x, y]: Pt, board: number[][]): Pt[] {
   const maxx = board[0].length - 1;
   const maxy = board.length - 1;
-  const ns = neighbors(x, y, maxx, maxy);
+  const ns = Array.from(neighbors(x, y, maxx, maxy));
   const larger = ns.filter(
     ([nx, ny]) => board[ny][nx] > board[y][x] && board[ny][nx] != 9,
   );
