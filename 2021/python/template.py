@@ -1,7 +1,16 @@
+import os
+import util as u
+
+# from collections import namedtuple
+# from dataclasses import dataclass
+# from functools import cache
+# import math
+
 sample_input = """
 """.strip()
 
-with open("input/day09.txt") as f:
+DAY = os.path.basename(__file__)[3:5]
+with open(f"input/day{DAY}.txt") as f:
     real_input = f.read().strip()
 
 

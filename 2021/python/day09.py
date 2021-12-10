@@ -1,5 +1,7 @@
+import os
 from collections import namedtuple
 import math
+
 
 sample_input = """
 2199943210
@@ -11,7 +13,8 @@ sample_input = """
 
 Grid = namedtuple("Grid", ["grid", "x_max", "y_max"])
 
-with open("input/day09.txt") as f:
+DAY = os.path.basename(__file__)[3:5]
+with open(f"input/day{DAY}.txt") as f:
     real_input = f.read().strip()
 
 
