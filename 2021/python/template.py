@@ -1,5 +1,7 @@
 import os
-import util as u
+
+# import util as u
+# from parse import parse
 
 # from collections import namedtuple
 # from dataclasses import dataclass
@@ -14,7 +16,7 @@ with open(f"input/day{DAY}.txt") as f:
     real_input = f.read().strip()
 
 
-def parse(input):
+def parse_input(input):
     out = []
     for line in input.split("\n"):
         pass
@@ -22,12 +24,12 @@ def parse(input):
 
 
 def run(input):
-    inp = parse(input)
+    inp = parse_input(input)
     print(inp)
 
 
 def run2(input):
-    inp = parse(input)
+    inp = parse_input(input)
 
 
 print("=" * 40)

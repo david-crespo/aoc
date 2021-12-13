@@ -1,5 +1,5 @@
 import os
-import util as u
+from parse import parse
 
 sample_input = """
 6,10
@@ -30,11 +30,6 @@ with open(f"input/day{DAY}.txt") as f:
     real_input = f.read().strip()
 
 
-def parse_fold(s):
-    a, b = s.lstrip("fold along ").split("=")
-    return (a, int(b))
-
-
 def pp(pts):
     max_x = max(x for x, y in pts)
     max_y = max(y for x, y in pts)
@@ -43,16 +38,16 @@ def pp(pts):
     print()
 
 
-def parse(input):
+def parse_input(input):
     pts, folds = input.split("\n\n")
     return (
-        set(tuple(map(int, pt.split(","))) for pt in pts.split("\n")),
-        [parse_fold(f) for f in folds.split("\n")],
+        set(parse("{:d},{:d}", pt).fixed for pt in pts.split("\n")),
+        [parse("fold along {}={:d}", f).fixed for f in folds.split("\n")],
     )
 
 
 def run(input):
-    pts, folds = parse(input)
+    pts, folds = parse_input(input)
     # part 1 uses only folds[:1]
     for axis, n in folds:
         # pp(pts)
@@ -67,10 +62,6 @@ def run(input):
 
     pp(pts)
     print(len(pts))
-
-
-def run2(input):
-    inp = parse(input)
 
 
 print("=" * 40)
