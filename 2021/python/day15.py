@@ -42,14 +42,8 @@ def run2(input):
         for j in range(5):
             for x, y in inp.pts:
                 new_pt = (x + inp.lx * i, y + inp.ly * j)
-                v = inp.pts[(x, y)]
-                inc = i + j
-                while inc > 0:
-                    v += 1
-                    if v == 10:
-                        v = 1
-                    inc -= 1
-
+                v = inp.pts[(x, y)] + i + j
+                v = v - 9 if v > 9 else v
                 grid.pts[new_pt] = v
     print(path_length(grid))
 
