@@ -7,8 +7,9 @@ import os
 # from dataclasses import dataclass
 # from functools import cache
 # import math
+# from typing import List, Tuple, Dict
 
-sample_input = """
+s1 = """
 """.strip()
 
 DAY = os.path.basename(__file__)[3:5]
@@ -33,9 +34,9 @@ def run2(input):
 
 
 print("=" * 40)
-run(sample_input)
+run(s1)
 # run(real_input)
 
 # print()
-# run2(sample_input)
+# run2(s1)
 # run2(real_input)
