@@ -15,8 +15,8 @@ def chunk_to_func(i, lines):
     cmd, a = lines[0].split(" ")
     func = f"""
 def c{i}(num, dat):
-    w, x, y, z = dat
     {a} = num
+    x, y, z = dat
 """
     for line in lines[1:]:
         cmd, a, b = line.split(" ")
@@ -31,7 +31,7 @@ def c{i}(num, dat):
         elif cmd == "eql":
             func += f"    {a} = int({a} == {b})\n"
 
-    func += "    return (w, x, y, z)\n"
+    func += "    return (x, y, z)\n"
     return func
 
 
@@ -58,7 +58,9 @@ def run():
     dats = dict()
     for i, chunk in enumerate(chunks):
         new_dats = dict()
-        items = [((0, 0, 0, 0), 0)] if i == 0 else dats.items()
+        # realized that w gets thrown out immediately every time, so
+        # it's irrelevant. this reduces the number of unique dats
+        items = [((0, 0, 0), 0)] if i == 0 else dats.items()
         for j, (dat, high) in enumerate(items):
             if j % 100000 == 0:
                 print(j)
@@ -72,7 +74,7 @@ def run():
                     new_dats[new_dat] = n
         dats = new_dats
         print(i, len(dats))
-    valid = [(k, v) for k, v in dats.items() if k[3] == 0]
+    valid = [(k, v) for k, v in dats.items() if k[2] == 0]
     print(valid)
     print("valid count:", len(valid))
     print("max:", max(v for k, v in valid))  # part 1
