@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use hashbrown::HashMap;
 
 type Dat = (i32, i32, i32);
 type Cmd = fn(i32, &Dat) -> Dat;
@@ -353,5 +353,5 @@ fn main() {
     }
 }
 
-// solves part 1 in 21s in release mode
-// compare to 100s for python
+// solves part 1 in 7.7s in release mode
+// compare to 95s for python

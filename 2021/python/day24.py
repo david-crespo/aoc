@@ -86,17 +86,16 @@ exec(input_python)
 
 def run():
     dats = dict()
+    dats[(0, 0, 0)] = 0
     for i, chunk in enumerate(chunks):
         new_dats = dict()
         # realized that w gets thrown out immediately every time, so
         # it's irrelevant. this reduces the number of unique dats
-        items = [((0, 0, 0), 0)] if i == 0 else dats.items()
-        for j, (dat, high) in enumerate(items):
-            if j % 100000 == 0:
-                print(j)
+        for dat, high in dats.items():
+            base = high * 10
             for d in range(1, 10):
                 new_dat = chunk(d, dat)
-                n = high * 10 + d
+                n = base + d
                 # condition for part 1:
                 if new_dats.get(new_dat, 0) < n:
                     # condition for part 2:
