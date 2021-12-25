@@ -35,12 +35,40 @@ def c{i}(num, dat):
     return func
 
 
+def chunk_to_rust(i, lines):
+    cmd, a = lines[0].split(" ")
+    print(f"fn c{i}(num: i64, dat: &Dat) -> Dat {{")
+    print("    let w = num;")
+    print("    let (mut x, mut y, mut z) = dat;")
+    for line in lines[1:]:
+        cmd, a, b = line.split(" ")
+        if cmd == "add":
+            print(f"    {a} = {a} + {b};")
+        elif cmd == "mul":
+            print(f"    {a} = {a} * {b};")
+        elif cmd == "div":
+            print(f"    {a} = {a} / {b};")
+        elif cmd == "mod":
+            print(f"    {a} = {a} % {b};")
+        elif cmd == "eql":
+            print(f"    {a} = ({a} == {b}) as i64;")
+
+    print("    (x, y, z)")
+    print("}\n")
+
+
 def input_to_python(input: str):
     chunks = chunk_by(lambda line: line.startswith("inp"), input.splitlines())
     chunks = [chunk_to_func(i, c) for i, c in enumerate(chunks)]
     names = ", ".join(f"c{i}" for i in range(len(chunks)))
     chunks.append(f"chunks = [{names}]")
     return "\n\n".join(chunks)
+
+
+def input_to_rust(input: str):
+    chunks = chunk_by(lambda line: line.startswith("inp"), input.splitlines())
+    for i, c in enumerate(chunks):
+        chunk_to_rust(i, c)
 
 
 DAY = os.path.basename(__file__)[3:5]
@@ -52,6 +80,8 @@ chunks = []  # real defn comes from exec, this is to make linter shut up
 input_python = input_to_python(real_input)
 # print(input_python)
 exec(input_python)
+
+# input_to_rust(real_input)
 
 
 def run():
@@ -68,9 +98,9 @@ def run():
                 new_dat = chunk(d, dat)
                 n = high * 10 + d
                 # condition for part 1:
-                # if new_dats.get(new_dat, 0) < n:
-                # condition for part 2:
-                if new_dat not in new_dats or new_dats[new_dat] > n:
+                if new_dats.get(new_dat, 0) < n:
+                    # condition for part 2:
+                    # if new_dat not in new_dats or new_dats[new_dat] > n:
                     new_dats[new_dat] = n
         dats = new_dats
         print(i, len(dats))
