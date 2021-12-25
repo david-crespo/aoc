@@ -37,7 +37,7 @@ def c{i}(num, dat):
 
 def chunk_to_rust(i, lines):
     cmd, a = lines[0].split(" ")
-    print(f"fn c{i}(num: i64, dat: &Dat) -> Dat {{")
+    print(f"fn c{i}(num: i32, dat: &Dat) -> Dat {{")
     print("    let w = num;")
     print("    let (mut x, mut y, mut z) = dat;")
     for line in lines[1:]:
@@ -51,7 +51,7 @@ def chunk_to_rust(i, lines):
         elif cmd == "mod":
             print(f"    {a} = {a} % {b};")
         elif cmd == "eql":
-            print(f"    {a} = ({a} == {b}) as i64;")
+            print(f"    {a} = ({a} == {b}) as i32;")
 
     print("    (x, y, z)")
     print("}\n")

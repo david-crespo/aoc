@@ -1,9 +1,9 @@
 use std::collections::HashMap;
 
-type Dat = (i64, i64, i64);
-type Cmd = fn(i64, &Dat) -> Dat;
+type Dat = (i32, i32, i32);
+type Cmd = fn(i32, &Dat) -> Dat;
 
-fn c0(num: i64, dat: &Dat) -> Dat {
+fn c0(num: i32, dat: &Dat) -> Dat {
     let w = num;
     let (mut x, mut y, mut z) = dat;
     x = x * 0;
@@ -11,8 +11,8 @@ fn c0(num: i64, dat: &Dat) -> Dat {
     x = x % 26;
     z = z / 1;
     x = x + 13;
-    x = (x == w) as i64;
-    x = (x == 0) as i64;
+    x = (x == w) as i32;
+    x = (x == 0) as i32;
     y = y * 0;
     y = y + 25;
     y = y * x;
@@ -26,7 +26,7 @@ fn c0(num: i64, dat: &Dat) -> Dat {
     (x, y, z)
 }
 
-fn c1(num: i64, dat: &Dat) -> Dat {
+fn c1(num: i32, dat: &Dat) -> Dat {
     let w = num;
     let (mut x, mut y, mut z) = dat;
     x = x * 0;
@@ -34,8 +34,8 @@ fn c1(num: i64, dat: &Dat) -> Dat {
     x = x % 26;
     z = z / 1;
     x = x + 13;
-    x = (x == w) as i64;
-    x = (x == 0) as i64;
+    x = (x == w) as i32;
+    x = (x == 0) as i32;
     y = y * 0;
     y = y + 25;
     y = y * x;
@@ -49,7 +49,7 @@ fn c1(num: i64, dat: &Dat) -> Dat {
     (x, y, z)
 }
 
-fn c2(num: i64, dat: &Dat) -> Dat {
+fn c2(num: i32, dat: &Dat) -> Dat {
     let w = num;
     let (mut x, mut y, mut z) = dat;
     x = x * 0;
@@ -57,8 +57,8 @@ fn c2(num: i64, dat: &Dat) -> Dat {
     x = x % 26;
     z = z / 1;
     x = x + 10;
-    x = (x == w) as i64;
-    x = (x == 0) as i64;
+    x = (x == w) as i32;
+    x = (x == 0) as i32;
     y = y * 0;
     y = y + 25;
     y = y * x;
@@ -72,7 +72,7 @@ fn c2(num: i64, dat: &Dat) -> Dat {
     (x, y, z)
 }
 
-fn c3(num: i64, dat: &Dat) -> Dat {
+fn c3(num: i32, dat: &Dat) -> Dat {
     let w = num;
     let (mut x, mut y, mut z) = dat;
     x = x * 0;
@@ -80,8 +80,8 @@ fn c3(num: i64, dat: &Dat) -> Dat {
     x = x % 26;
     z = z / 1;
     x = x + 15;
-    x = (x == w) as i64;
-    x = (x == 0) as i64;
+    x = (x == w) as i32;
+    x = (x == 0) as i32;
     y = y * 0;
     y = y + 25;
     y = y * x;
@@ -95,7 +95,7 @@ fn c3(num: i64, dat: &Dat) -> Dat {
     (x, y, z)
 }
 
-fn c4(num: i64, dat: &Dat) -> Dat {
+fn c4(num: i32, dat: &Dat) -> Dat {
     let w = num;
     let (mut x, mut y, mut z) = dat;
     x = x * 0;
@@ -103,8 +103,8 @@ fn c4(num: i64, dat: &Dat) -> Dat {
     x = x % 26;
     z = z / 26;
     x = x + -8;
-    x = (x == w) as i64;
-    x = (x == 0) as i64;
+    x = (x == w) as i32;
+    x = (x == 0) as i32;
     y = y * 0;
     y = y + 25;
     y = y * x;
@@ -118,7 +118,7 @@ fn c4(num: i64, dat: &Dat) -> Dat {
     (x, y, z)
 }
 
-fn c5(num: i64, dat: &Dat) -> Dat {
+fn c5(num: i32, dat: &Dat) -> Dat {
     let w = num;
     let (mut x, mut y, mut z) = dat;
     x = x * 0;
@@ -126,8 +126,8 @@ fn c5(num: i64, dat: &Dat) -> Dat {
     x = x % 26;
     z = z / 26;
     x = x + -10;
-    x = (x == w) as i64;
-    x = (x == 0) as i64;
+    x = (x == w) as i32;
+    x = (x == 0) as i32;
     y = y * 0;
     y = y + 25;
     y = y * x;
@@ -141,7 +141,7 @@ fn c5(num: i64, dat: &Dat) -> Dat {
     (x, y, z)
 }
 
-fn c6(num: i64, dat: &Dat) -> Dat {
+fn c6(num: i32, dat: &Dat) -> Dat {
     let w = num;
     let (mut x, mut y, mut z) = dat;
     x = x * 0;
@@ -149,8 +149,8 @@ fn c6(num: i64, dat: &Dat) -> Dat {
     x = x % 26;
     z = z / 1;
     x = x + 11;
-    x = (x == w) as i64;
-    x = (x == 0) as i64;
+    x = (x == w) as i32;
+    x = (x == 0) as i32;
     y = y * 0;
     y = y + 25;
     y = y * x;
@@ -164,7 +164,7 @@ fn c6(num: i64, dat: &Dat) -> Dat {
     (x, y, z)
 }
 
-fn c7(num: i64, dat: &Dat) -> Dat {
+fn c7(num: i32, dat: &Dat) -> Dat {
     let w = num;
     let (mut x, mut y, mut z) = dat;
     x = x * 0;
@@ -172,8 +172,8 @@ fn c7(num: i64, dat: &Dat) -> Dat {
     x = x % 26;
     z = z / 26;
     x = x + -3;
-    x = (x == w) as i64;
-    x = (x == 0) as i64;
+    x = (x == w) as i32;
+    x = (x == 0) as i32;
     y = y * 0;
     y = y + 25;
     y = y * x;
@@ -187,7 +187,7 @@ fn c7(num: i64, dat: &Dat) -> Dat {
     (x, y, z)
 }
 
-fn c8(num: i64, dat: &Dat) -> Dat {
+fn c8(num: i32, dat: &Dat) -> Dat {
     let w = num;
     let (mut x, mut y, mut z) = dat;
     x = x * 0;
@@ -195,8 +195,8 @@ fn c8(num: i64, dat: &Dat) -> Dat {
     x = x % 26;
     z = z / 1;
     x = x + 14;
-    x = (x == w) as i64;
-    x = (x == 0) as i64;
+    x = (x == w) as i32;
+    x = (x == 0) as i32;
     y = y * 0;
     y = y + 25;
     y = y * x;
@@ -210,7 +210,7 @@ fn c8(num: i64, dat: &Dat) -> Dat {
     (x, y, z)
 }
 
-fn c9(num: i64, dat: &Dat) -> Dat {
+fn c9(num: i32, dat: &Dat) -> Dat {
     let w = num;
     let (mut x, mut y, mut z) = dat;
     x = x * 0;
@@ -218,8 +218,8 @@ fn c9(num: i64, dat: &Dat) -> Dat {
     x = x % 26;
     z = z / 26;
     x = x + -4;
-    x = (x == w) as i64;
-    x = (x == 0) as i64;
+    x = (x == w) as i32;
+    x = (x == 0) as i32;
     y = y * 0;
     y = y + 25;
     y = y * x;
@@ -233,7 +233,7 @@ fn c9(num: i64, dat: &Dat) -> Dat {
     (x, y, z)
 }
 
-fn c10(num: i64, dat: &Dat) -> Dat {
+fn c10(num: i32, dat: &Dat) -> Dat {
     let w = num;
     let (mut x, mut y, mut z) = dat;
     x = x * 0;
@@ -241,8 +241,8 @@ fn c10(num: i64, dat: &Dat) -> Dat {
     x = x % 26;
     z = z / 1;
     x = x + 14;
-    x = (x == w) as i64;
-    x = (x == 0) as i64;
+    x = (x == w) as i32;
+    x = (x == 0) as i32;
     y = y * 0;
     y = y + 25;
     y = y * x;
@@ -256,7 +256,7 @@ fn c10(num: i64, dat: &Dat) -> Dat {
     (x, y, z)
 }
 
-fn c11(num: i64, dat: &Dat) -> Dat {
+fn c11(num: i32, dat: &Dat) -> Dat {
     let w = num;
     let (mut x, mut y, mut z) = dat;
     x = x * 0;
@@ -264,8 +264,8 @@ fn c11(num: i64, dat: &Dat) -> Dat {
     x = x % 26;
     z = z / 26;
     x = x + -5;
-    x = (x == w) as i64;
-    x = (x == 0) as i64;
+    x = (x == w) as i32;
+    x = (x == 0) as i32;
     y = y * 0;
     y = y + 25;
     y = y * x;
@@ -279,7 +279,7 @@ fn c11(num: i64, dat: &Dat) -> Dat {
     (x, y, z)
 }
 
-fn c12(num: i64, dat: &Dat) -> Dat {
+fn c12(num: i32, dat: &Dat) -> Dat {
     let w = num;
     let (mut x, mut y, mut z) = dat;
     x = x * 0;
@@ -287,8 +287,8 @@ fn c12(num: i64, dat: &Dat) -> Dat {
     x = x % 26;
     z = z / 26;
     x = x + -8;
-    x = (x == w) as i64;
-    x = (x == 0) as i64;
+    x = (x == w) as i32;
+    x = (x == 0) as i32;
     y = y * 0;
     y = y + 25;
     y = y * x;
@@ -302,7 +302,7 @@ fn c12(num: i64, dat: &Dat) -> Dat {
     (x, y, z)
 }
 
-fn c13(num: i64, dat: &Dat) -> Dat {
+fn c13(num: i32, dat: &Dat) -> Dat {
     let w = num;
     let (mut x, mut y, mut z) = dat;
     x = x * 0;
@@ -310,8 +310,8 @@ fn c13(num: i64, dat: &Dat) -> Dat {
     x = x % 26;
     z = z / 26;
     x = x + -11;
-    x = (x == w) as i64;
-    x = (x == 0) as i64;
+    x = (x == w) as i32;
+    x = (x == 0) as i32;
     y = y * 0;
     y = y + 25;
     y = y * x;
@@ -333,13 +333,11 @@ fn main() {
 
     for (i, chunk) in chunks.iter().enumerate() {
         new_dats = HashMap::new();
-        for (j, (dat, high)) in dats.iter().enumerate() {
-            if j % 100000 == 0 {
-                dbg!(j);
-            }
+        for (dat, high) in dats.iter() {
+            let base = high * 10;
             for d in 1..10 {
                 let new_dat = chunk(d, dat);
-                let n = high * 10 + d;
+                let n = base + (d as i64);
                 if new_dats.get(&new_dat).unwrap_or(&0) < &n {
                     new_dats.insert(new_dat, n);
                 }
