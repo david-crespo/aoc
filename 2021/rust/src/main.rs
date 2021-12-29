@@ -338,8 +338,9 @@ fn main() {
             for d in 1..10 {
                 let new_dat = chunk(d, dat);
                 let n = base + (d as i64);
-                if new_dats.get(&new_dat).unwrap_or(&0) < &n {
-                    new_dats.insert(new_dat, n);
+                let entry = new_dats.entry(new_dat).or_insert(0);
+                if *entry < n {
+                    *entry = n;
                 }
             }
         }
@@ -353,5 +354,5 @@ fn main() {
     }
 }
 
-// solves part 1 in 7.7s in release mode
+// solves part 1 in 6.6s in release mode
 // compare to 95s for python
