@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+ls haskell/*.hs | entr runhaskell haskell/day"$1".hs
