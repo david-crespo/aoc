@@ -2,17 +2,6 @@
 
 ## Running
 
-### Setup
-
-Had to run these to get stack to ignore its own configured GHC and use the one I
-have set globally with ghcup, which is 9.2.4 because the language server is not
-compatible with 9.2.5.
-
-```
-stack config set install-ghc false --global
-stack config set system-ghc  true  --global
-```
-
 ### Compile and run directly
 
 ```
@@ -39,3 +28,6 @@ running through it. This seems to be the recommended way, not using cabal
 directly. There's so much overhead in terms of project files and stuff, though,
 that instead of a separate project for each day, I'd rather have a separate file
 in `src/` for each day and just change the import in `Main.hs`.
+
+Had to change to GHC 9.4.2 because I think I messed up my 9.2.4 somehow, and I
+wanted a version compatible with the language server.

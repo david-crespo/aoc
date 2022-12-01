@@ -4,7 +4,7 @@ module Day01
   )
 where
 
-import Data.List (groupBy, sort)
+import Data.List (sort)
 
 readInt :: String -> Int
 readInt = read
