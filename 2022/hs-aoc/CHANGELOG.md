@@ -1,4 +1,4 @@
-# Changelog for `day01`
+# Changelog for `hs-aoc`
 
 All notable changes to this project will be documented in this file.
 

@@ -4,16 +4,15 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 
-name:           day01
+name:           hs-aoc
 version:        0.1.0.0
-description:    Please see the README on GitHub at <https://github.com/githubuser/day01#readme>
-homepage:       https://github.com/githubuser/day01#readme
-bug-reports:    https://github.com/githubuser/day01/issues
+description:    Please see the README on GitHub at <https://github.com/githubuser/hs-aoc#readme>
+homepage:       https://github.com/githubuser/hs-aoc#readme
+bug-reports:    https://github.com/githubuser/hs-aoc/issues
 author:         Author name here
 maintainer:     example@example.com
 copyright:      2022 Author name here
 license:        BSD3
-license-file:   LICENSE
 build-type:     Simple
 extra-source-files:
     README.md
@@ -21,13 +20,13 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/githubuser/day01
+  location: https://github.com/githubuser/hs-aoc
 
 library
   exposed-modules:
-      Lib
+      Day01
   other-modules:
-      Paths_day01
+      Paths_hs_aoc
   hs-source-dirs:
       src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
@@ -35,27 +34,27 @@ library
       base >=4.7 && <5
   default-language: Haskell2010
 
-executable day01-exe
+executable hs-aoc-exe
   main-is: Main.hs
   other-modules:
-      Paths_day01
+      Paths_hs_aoc
   hs-source-dirs:
       app
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
-    , day01
+    , hs-aoc
   default-language: Haskell2010
 
-test-suite day01-test
+test-suite hs-aoc-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_day01
+      Paths_hs_aoc
   hs-source-dirs:
       test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
-    , day01
+    , hs-aoc
   default-language: Haskell2010
