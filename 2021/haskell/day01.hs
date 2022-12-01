@@ -1,5 +1,3 @@
-import Data.Text qualified as T
-
 readInt :: String -> Int
 readInt = read
 
