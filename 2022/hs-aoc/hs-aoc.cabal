@@ -32,6 +32,7 @@ library
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
+    , split
   default-language: Haskell2010
 
 executable hs-aoc-exe
@@ -44,6 +45,7 @@ executable hs-aoc-exe
   build-depends:
       base >=4.7 && <5
     , hs-aoc
+    , split
   default-language: Haskell2010
 
 test-suite hs-aoc-test
@@ -57,4 +59,5 @@ test-suite hs-aoc-test
   build-depends:
       base >=4.7 && <5
     , hs-aoc
+    , split
   default-language: Haskell2010

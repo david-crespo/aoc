@@ -5,16 +5,13 @@ module Day01
 where
 
 import Data.List (sort)
+import Data.List.Split (splitOn)
 
 readInt :: String -> Int
 readInt = read
 
-groupfn :: [[String]] -> String -> [[String]]
-groupfn [] y = [[y]]
-groupfn (x : xs) y = if y == "" then [] : x : xs else (y : x) : xs
-
 sums :: String -> [Int]
-sums input = map (sum . map readInt) $ foldl groupfn [] (lines input)
+sums input = map (sum . map readInt . lines) $ splitOn "\n\n" input
 
 part1 :: IO ()
 part1 = do
