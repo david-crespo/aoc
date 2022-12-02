@@ -25,6 +25,8 @@ source-repository head
 library
   exposed-modules:
       Day01
+      Day02
+      Template
   other-modules:
       Paths_hs_aoc
   hs-source-dirs:
