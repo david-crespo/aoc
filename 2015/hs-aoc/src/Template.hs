@@ -1,8 +1,4 @@
-module Template
-  ( part1,
-    part2,
-  )
-where
+module Template (part1, part2) where
 
 readInt :: String -> Int
 readInt = read
