@@ -38,6 +38,7 @@ packages:
 #
 extra-deps:
 - split-0.2.3.5
+- cryptohash-md5-0.11.101.0
 # - git: https://github.com/commercialhaskell/stack.git
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
 #

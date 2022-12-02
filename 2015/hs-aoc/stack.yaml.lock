@@ -11,4 +11,11 @@ packages:
       size: 439
   original:
     hackage: split-0.2.3.5
+- completed:
+    hackage: cryptohash-md5-0.11.101.0@sha256:96e23516110de61f46acb5485172f668e252a3eef45b7657ad1e53431a2b4e68,3289
+    pantry-tree:
+      sha256: bcdb9ff434a3cd0f1291eaa4148601db933a6da5951de2fb128b1b97d27dbf6e
+      size: 571
+  original:
+    hackage: cryptohash-md5-0.11.101.0
 snapshots: []
