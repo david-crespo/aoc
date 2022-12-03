@@ -26,6 +26,7 @@ library
   exposed-modules:
       Day01
       Day02
+      Day03
       Template
   other-modules:
       Paths_hs_aoc
