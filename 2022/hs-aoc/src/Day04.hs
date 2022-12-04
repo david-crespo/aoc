@@ -3,6 +3,8 @@ module Day04 (part1, part2) where
 import Data.List.Split (splitOn)
 import Data.List (intersect)
 
+-- import Text.Regex.TDFA ((=~), getAllTextMatches)
+
 readInt :: String -> Int
 readInt = read
 
@@ -26,6 +28,9 @@ part1 :: IO ()
 part1 = do
   input <- readFile "../input/day04.txt"
   print $ length $ filter subsume $ lines input
+
+  -- print $ ("24-91,80-92" =~ "([0-9]+)-([0-9]+),([0-9]+)-([0-9]+)" :: (String, String, String, [String]))
+  -- print $ map readInt (getAllTextMatches ("24-91,80-92" =~ "[0-9]+") :: [String])
 
 part2 :: IO ()
 part2 = do
