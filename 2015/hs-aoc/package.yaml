@@ -25,6 +25,7 @@ dependencies:
 - containers
 - cryptohash-md5
 - bytestring
+- parsec
 
 ghc-options:
 - -Wall
