@@ -27,6 +27,7 @@ library
       Day01
       Day02
       Day03
+      Day04
       Template
   other-modules:
       Paths_hs_aoc
