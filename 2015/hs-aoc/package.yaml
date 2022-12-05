@@ -26,6 +26,7 @@ dependencies:
 - cryptohash-md5
 - bytestring
 - parsec
+- regex-tdfa
 
 ghc-options:
 - -Wall
