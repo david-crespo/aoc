@@ -23,6 +23,7 @@ dependencies:
 - base >= 4.7 && < 5
 - split
 - regex-tdfa
+- containers
 
 ghc-options:
 - -Wall

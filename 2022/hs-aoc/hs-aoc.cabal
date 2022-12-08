@@ -31,6 +31,7 @@ library
       Day05
       Day06
       Day07
+      Day08
       Template
   other-modules:
       Paths_hs_aoc
@@ -39,6 +40,7 @@ library
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
+    , containers
     , regex-tdfa
     , split
   default-language: Haskell2010
@@ -52,6 +54,7 @@ executable hs-aoc-exe
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
+    , containers
     , hs-aoc
     , regex-tdfa
     , split
@@ -67,6 +70,7 @@ test-suite hs-aoc-test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
+    , containers
     , hs-aoc
     , regex-tdfa
     , split
