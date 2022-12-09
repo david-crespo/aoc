@@ -47,9 +47,9 @@ move :: (Pt, Pt) -> Char -> (Pt, Pt)
 move (h, t) d = (newH, moveT newH t) where
   newH = moveH h d
 
-move2 :: Char -> [Pt] -> [Pt]
-move2 _ [] = []
-move2 d pts = foldl red [] pts where
+move2 :: [Pt] -> Char -> [Pt]
+move2 [] _ = []
+move2 pts d = foldl red [] pts where
   red :: [Pt] -> Pt -> [Pt]
   red [] h = [moveH h d]
   red newPts oldPt = newPts ++ [moveT (last newPts) oldPt]
@@ -59,7 +59,7 @@ part1 = do
   input <- readFile "../input/day09.txt"
   -- input <- readFile "../input/day09-example.txt"
   let moves = parseMoves input
-  let pts = reverse $ foldl (\ps d -> (move (head ps) d):ps) [((0,0),(0,0))] moves
+  let pts = reverse $ scanl move ((0,0),(0,0)) moves
   let tpts = nub $ map snd pts
   print $ length tpts
 
@@ -70,5 +70,5 @@ part2 = do
   -- input <- readFile "../input/day09-example.txt"
   let moves = parseMoves input
   let initial = replicate 10 (0,0)
-  let path = reverse $ foldl (\ps d -> (move2 d (head ps)):ps) [initial] moves
+  let path = reverse $ scanl move2 initial moves
   print $ length $ nub $ map (!! 9) path
