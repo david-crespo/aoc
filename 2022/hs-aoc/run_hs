@@ -1,3 +1,3 @@
 #!/usr/bin/env zsh
 
-ls src/*.hs app/*.hs | entr -s 'stack build && stack exec hs-aoc-exe'
+ls src/*.hs app/*.hs | entr -s 'stack build  --cabal-verbosity silent && stack exec hs-aoc-exe'
