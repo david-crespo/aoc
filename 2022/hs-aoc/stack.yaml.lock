@@ -25,4 +25,32 @@ packages:
       size: 531
   original:
     hackage: regex-base-0.94.0.2
+- completed:
+    hackage: astar-0.3.0.0@sha256:8bf6350542e9db9451490e8993560ee843dc48a61d46a206985430f9b62461c8,967
+    pantry-tree:
+      sha256: c4176cc3fc9ad39f2a9fc7eb4346c87b6e60b70ba23d8e2adbdfc81fe544b808
+      size: 213
+  original:
+    hackage: astar-0.3.0.0
+- completed:
+    hackage: hashable-1.4.1.0@sha256:50b2f002c68fe67730ee7a3cd8607486197dd99b084255005ad51ecd6970a41b,5019
+    pantry-tree:
+      sha256: 9af2f7a42674f7effcabbebc043f97057240783f1709338a77f58216f4a5f18c
+      size: 1248
+  original:
+    hackage: hashable-1.4.1.0
+- completed:
+    hackage: psqueues-0.2.7.3@sha256:7213d78598d397255b1861df318d9b5058577f86a9b83a8b652540cbdbc83033,4834
+    pantry-tree:
+      sha256: b4ccb2bc60af99ae76d6f978a533698bfb931730972d4b4be0e22fef9cf60c85
+      size: 1696
+  original:
+    hackage: psqueues-0.2.7.3
+- completed:
+    hackage: unordered-containers-0.2.19.1@sha256:db11042bb0356c0adea277d0794743829125b4c99455af6af2bd5f7bd5e88a39,3797
+    pantry-tree:
+      sha256: ac7a077274515b8afdf98138177b2fd2293c8bb346c5ec5caf2c5999da495112
+      size: 1517
+  original:
+    hackage: unordered-containers-0.2.19.1
 snapshots: []

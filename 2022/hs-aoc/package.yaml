@@ -24,6 +24,8 @@ dependencies:
 - split
 - regex-tdfa
 - containers
+- astar
+- unordered-containers
 
 ghc-options:
 - -Wall
