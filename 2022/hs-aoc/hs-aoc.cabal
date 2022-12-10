@@ -33,6 +33,7 @@ library
       Day07
       Day08
       Day09
+      Day10
       Template
   other-modules:
       Paths_hs_aoc

@@ -1,10 +1,11 @@
 module Main (main) where
 
-import Day09 (part1, part2)
+import Day10 (part1, part2)
 
 main :: IO ()
 main = do
   putStrLn "\n=============================================="
   part1
+  putStrLn "----------------------------------------------"
   part2
   putStrLn "==============================================\n"
