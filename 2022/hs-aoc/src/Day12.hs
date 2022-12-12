@@ -3,7 +3,7 @@ module Day12 (part1, part2) where
 import Data.Graph.AStar
 import Data.Char (ord)
 import Data.List (find, sort)
-import Data.Maybe (fromJust, catMaybes)
+import Data.Maybe (fromJust, catMaybes, mapMaybe)
 import qualified Data.Map as M
 import qualified Data.HashSet as H
 
@@ -16,21 +16,20 @@ parse s =  concatMap parseLine (zip [0..] (lines s)) where
   parseLine  (y, line) = map (\(x, c) -> ((x,y), c)) (zip [0..] line)
 
 nb :: Grid -> Pt -> [Pt]
-nb grid (x, y) = (
-  (if x > 0 then [(x-1, y)] else [])
-  ++ (if x < xmax then [(x+1, y)] else []) 
-  ++ (if y > 0 then [(x, y-1)] else []) 
-  ++ (if y < ymax then [(x, y+1)] else []) ) where
+nb grid (x, y) = catMaybes [ left, right, up, down ] where
+  left = if x > 0 then Just (x-1, y) else Nothing 
+  right = if x < xmax then Just (x+1, y) else Nothing 
+  up = if y > 0 then Just (x, y-1) else Nothing
+  down = if y < ymax then Just (x, y+1) else Nothing
   xmax = maximum $ map (fst . fst) (M.toList grid)
   ymax = maximum $ map (snd . fst) (M.toList grid)
 
 arrowsForPt :: Grid -> Pt -> H.HashSet Pt
-arrowsForPt grid pt = H.fromList $ concatMap toEdges (nb grid pt) where
+arrowsForPt grid pt = H.fromList $ mapMaybe maybeEdge (nb grid pt) where
   lk = fromJust . ((flip M.lookup) grid)
   currEl = lk pt
-  toEdges :: Pt -> [Pt]
-  toEdges other = if ord (lk other) - ord currEl <= 1 then [other] else []
-
+  maybeEdge :: Pt -> Maybe Pt
+  maybeEdge other = if ord (lk other) - ord currEl <= 1 then Just other else Nothing
 
 getPath :: Grid -> Pt -> Pt -> Maybe [Pt]
 getPath grid end start = aStar (arrowsForPt grid) (\_ _ -> 1) (\_ -> 0) (== end) start
