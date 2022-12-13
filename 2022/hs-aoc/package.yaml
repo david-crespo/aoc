@@ -27,6 +27,7 @@ dependencies:
 - astar
 - unordered-containers
 - parsec
+- flow
 
 ghc-options:
 - -Wall

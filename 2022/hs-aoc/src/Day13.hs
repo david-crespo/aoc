@@ -16,7 +16,6 @@ instance Ord Packet where
   compare (L as) (I b) = compare (L as) (L [I b])
   compare (I a) (I b) = compare a b
 
-
 num :: GenParser Char st Packet
 num = I . read <$> many1 digit
 
@@ -24,7 +23,7 @@ lst :: GenParser Char st Packet
 lst = L <$> between (string "[") (string "]") (sepBy packet (string ","))
 
 packet :: GenParser Char st Packet
-packet = try lst <|> try num
+packet = lst <|> num
 
 pair :: GenParser Char st (Packet, Packet)
 pair = (,) <$> (packet <* newline) <*> packet

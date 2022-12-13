@@ -47,6 +47,7 @@ library
       astar
     , base >=4.7 && <5
     , containers
+    , flow
     , parsec
     , regex-tdfa
     , split
@@ -64,6 +65,7 @@ executable hs-aoc-exe
       astar
     , base >=4.7 && <5
     , containers
+    , flow
     , hs-aoc
     , parsec
     , regex-tdfa
@@ -83,6 +85,7 @@ test-suite hs-aoc-test
       astar
     , base >=4.7 && <5
     , containers
+    , flow
     , hs-aoc
     , parsec
     , regex-tdfa

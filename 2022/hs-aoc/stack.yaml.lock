@@ -53,4 +53,11 @@ packages:
       size: 1517
   original:
     hackage: unordered-containers-0.2.19.1
+- completed:
+    hackage: flow-2.0.0.1@sha256:cf3c3b5898c608867012dd172bd706a752f243e27df1c5985d679b6a84156df1,1339
+    pantry-tree:
+      sha256: cd941d0c4400f6986c342959e8f82e948eede97b14172f467f78590c76b451b5
+      size: 355
+  original:
+    hackage: flow-2.0.0.1
 snapshots: []
