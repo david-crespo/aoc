@@ -36,6 +36,7 @@ library
       Day10
       Day11
       Day12
+      Day13
       Template
   other-modules:
       Paths_hs_aoc
@@ -46,6 +47,7 @@ library
       astar
     , base >=4.7 && <5
     , containers
+    , parsec
     , regex-tdfa
     , split
     , unordered-containers
@@ -63,6 +65,7 @@ executable hs-aoc-exe
     , base >=4.7 && <5
     , containers
     , hs-aoc
+    , parsec
     , regex-tdfa
     , split
     , unordered-containers
@@ -81,6 +84,7 @@ test-suite hs-aoc-test
     , base >=4.7 && <5
     , containers
     , hs-aoc
+    , parsec
     , regex-tdfa
     , split
     , unordered-containers
