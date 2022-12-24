@@ -48,64 +48,54 @@ def parse_line(s: str) -> Blueprint:
 
 
 @cache
-def next_states(bp: Blueprint, state: State, ahead: int) -> List[State]:
-    if ahead == 1:
-        new_ore = state.ore + state.ore_robots
-        new_clay = state.clay + state.clay_robots
-        new_obs = state.obs + state.obs_robots
-        new_geo = state.geo + state.geo_robots
+def next_states(bp: Blueprint, state: State) -> List[State]:
+    new_ore = state.ore + state.ore_robots
+    new_clay = state.clay + state.clay_robots
+    new_obs = state.obs + state.obs_robots
+    new_geo = state.geo + state.geo_robots
 
-        only_mine = state._replace(
-            ore=new_ore,
-            clay=new_clay,
-            obs=new_obs,
-            geo=new_geo,
+    only_mine = state._replace(
+        ore=new_ore,
+        clay=new_clay,
+        obs=new_obs,
+        geo=new_geo,
+    )
+
+    ns = [only_mine]
+
+    if state.ore >= bp.ore_cost_ore:
+        ns.append(
+            only_mine._replace(
+                ore_robots=state.ore_robots + 1, ore=new_ore - bp.ore_cost_ore
+            )
         )
 
-        ns = [only_mine]
-
-        if state.ore >= bp.ore_cost_ore:
-            ns.append(
-                only_mine._replace(
-                    ore_robots=state.ore_robots + 1, ore=new_ore - bp.ore_cost_ore
-                )
+    if state.ore >= bp.clay_cost_ore:
+        ns.append(
+            only_mine._replace(
+                clay_robots=state.clay_robots + 1, ore=new_ore - bp.clay_cost_ore
             )
+        )
 
-        if state.ore >= bp.clay_cost_ore:
-            ns.append(
-                only_mine._replace(
-                    clay_robots=state.clay_robots + 1, ore=new_ore - bp.clay_cost_ore
-                )
+    if state.ore >= bp.obs_cost_ore and state.clay >= bp.obs_cost_clay:
+        ns.append(
+            only_mine._replace(
+                obs_robots=state.obs_robots + 1,
+                ore=new_ore - bp.obs_cost_ore,
+                clay=new_clay - bp.obs_cost_clay,
             )
+        )
 
-        if state.ore >= bp.obs_cost_ore and state.clay >= bp.obs_cost_clay:
-            ns.append(
-                only_mine._replace(
-                    obs_robots=state.obs_robots + 1,
-                    ore=new_ore - bp.obs_cost_ore,
-                    clay=new_clay - bp.obs_cost_clay,
-                )
+    if state.ore >= bp.geo_cost_ore and state.obs >= bp.geo_cost_obs:
+        ns.append(
+            only_mine._replace(
+                geo_robots=state.geo_robots + 1,
+                ore=new_ore - bp.geo_cost_ore,
+                obs=new_obs - bp.geo_cost_obs,
             )
+        )
 
-        if state.ore >= bp.geo_cost_ore and state.obs >= bp.geo_cost_obs:
-            ns.append(
-                only_mine._replace(
-                    geo_robots=state.geo_robots + 1,
-                    ore=new_ore - bp.geo_cost_ore,
-                    obs=new_obs - bp.geo_cost_obs,
-                )
-            )
-
-        return ns
-    if ahead == 2:
-        return [nn for n in next_states(bp, state, 1) for nn in next_states(bp, n, 1)]
-    elif ahead == 3:
-        return [nnn for n in next_states(bp, state, 1) for nnn in next_states(bp, n, 2)]
-    elif ahead == 4:
-        return [
-            nnnn for nn in next_states(bp, state, 2) for nnnn in next_states(bp, nn, 2)
-        ]
-    return []
+    return ns
 
 
 @cache
@@ -113,20 +103,8 @@ def most_geodes(bp: Blueprint, state: State, mins_left: int) -> State:
     if mins_left == 0:
         return state
 
-    if mins_left == 1:
-        return max(next_states(bp, state), key=lambda st: st.geo)
-
-    if mins_left == 2:
-        return max(next_states(bp, state, 2), key=lambda st: st.geo)
-
-    if mins_left == 3:
-        return max(next_states(bp, state, 3), key=lambda st: st.geo)
-
-    if mins_left == 4:
-        return max(next_states(bp, state, 4), key=lambda st: st.geo)
-
     return max(
-        (most_geodes(bp, s, mins_left - 4) for s in next_states(bp, state, 4)),
+        (most_geodes(bp, s, mins_left - 1) for s in next_states(bp, state)),
         key=lambda st: st.geo,
     )
 
