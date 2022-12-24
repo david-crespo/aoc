@@ -99,14 +99,13 @@ def next_states(bp: Blueprint, state: State) -> List[State]:
 
 
 @cache
-def most_geodes(bp: Blueprint, state: State, mins_left: int) -> State:
+def most_geodes(bp: Blueprint, state: State, mins_left: int) -> int:
     if mins_left == 0:
-        return state
+        return state.geo
 
-    return max(
-        (most_geodes(bp, s, mins_left - 1) for s in next_states(bp, state)),
-        key=lambda st: st.geo,
-    )
+    ns = next_states(bp, state)
+
+    return max(most_geodes(bp, s, mins_left - 1) for s in ns)
 
 
 init_state = State(0, 1, 0, 0, 0, 0, 0, 0)
@@ -115,13 +114,12 @@ init_state = State(0, 1, 0, 0, 0, 0, 0, 0)
 def run(input):
     start = time.time()
     bps = [parse_line(line) for line in input.split("\n")]
-    # print(most_geodes(bps[0], init_state, 24))
     x = 0
     for bp in bps:
         print(f"{bp.i}: ", end="", flush=True)
-        s = most_geodes(bp, init_state, 20)
-        print(f"{s.geo}")
-        x += bp.i * s.geo
+        m = most_geodes(bp, init_state, 19)
+        print(f"{m}")
+        x += bp.i * m
     end = time.time()
     print(f"total: {x} ({round(end-start, 1)}s)")
 
