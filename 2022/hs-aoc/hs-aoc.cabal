@@ -44,6 +44,7 @@ library
       Day19
       Day20
       Day21
+      Day23
       Template
   other-modules:
       Paths_hs_aoc
