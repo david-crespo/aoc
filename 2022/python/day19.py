@@ -46,55 +46,59 @@ def parse_line(s: str) -> Blueprint:
     return Blueprint(*nums)
 
 
-@cache
-def next_states(bp: Blueprint, state: State) -> List[State]:
+def next_states(bp: Blueprint, state: State, skip_ore=False, skip_clay=False):
     new_ore = state.ore + state.ore_robots
     new_clay = state.clay + state.clay_robots
     new_obs = state.obs + state.obs_robots
     new_geo = state.geo + state.geo_robots
 
-    only_mine = state._replace(
-        ore=new_ore,
-        clay=new_clay,
-        obs=new_obs,
-        geo=new_geo,
-    )
+    # if you can build a geo bot immediately it is always the best option
+    if state.ore >= bp.geo_cost_ore and state.obs >= bp.geo_cost_obs:
+        yield state._replace(
+            clay=new_clay,
+            geo=new_geo,
+            geo_robots=state.geo_robots + 1,
+            ore=new_ore - bp.geo_cost_ore,
+            obs=new_obs - bp.geo_cost_obs,
+        )
+        return
 
-    ns = [only_mine]
+    just_mine = True
 
-    if state.ore >= bp.ore_cost_ore:
-        ns.append(
-            only_mine._replace(
-                ore_robots=state.ore_robots + 1, ore=new_ore - bp.ore_cost_ore
-            )
+    if not skip_ore and state.ore >= bp.ore_cost_ore:
+        # just_mine = False
+        yield state._replace(
+            clay=new_clay,
+            obs=new_obs,
+            geo=new_geo,
+            ore_robots=state.ore_robots + 1,
+            ore=new_ore - bp.ore_cost_ore,
         )
 
-    if state.ore >= bp.clay_cost_ore:
-        ns.append(
-            only_mine._replace(
-                clay_robots=state.clay_robots + 1, ore=new_ore - bp.clay_cost_ore
-            )
+    if not skip_clay and state.ore >= bp.clay_cost_ore:
+        # just_mine = False
+        yield state._replace(
+            clay=new_clay,
+            obs=new_obs,
+            geo=new_geo,
+            clay_robots=state.clay_robots + 1,
+            ore=new_ore - bp.clay_cost_ore,
         )
 
     if state.ore >= bp.obs_cost_ore and state.clay >= bp.obs_cost_clay:
-        ns.append(
-            only_mine._replace(
-                obs_robots=state.obs_robots + 1,
-                ore=new_ore - bp.obs_cost_ore,
-                clay=new_clay - bp.obs_cost_clay,
-            )
+        # just_mine = False
+        yield state._replace(
+            obs=new_obs,
+            geo=new_geo,
+            obs_robots=state.obs_robots + 1,
+            ore=new_ore - bp.obs_cost_ore,
+            clay=new_clay - bp.obs_cost_clay,
         )
 
-    if state.ore >= bp.geo_cost_ore and state.obs >= bp.geo_cost_obs:
-        ns.append(
-            only_mine._replace(
-                geo_robots=state.geo_robots + 1,
-                ore=new_ore - bp.geo_cost_ore,
-                obs=new_obs - bp.geo_cost_obs,
-            )
-        )
-
-    return ns
+    # even if you can do something else, just mining is occasionally preferable.
+    # it turns out this is true in part 1, but not in part 2!
+    if just_mine:
+        yield state._replace(ore=new_ore, clay=new_clay, obs=new_obs, geo=new_geo)
 
 
 @cache
@@ -131,7 +135,11 @@ def most_geodes(bp: Blueprint, state: State, mins_left: int) -> int:
 
         return state.geo + (3 * state.geo_robots)
 
-    ns = next_states(bp, state)
+    if mins_left == 4 or mins_left == 5:
+        ns = next_states(bp, state, skip_clay=True, skip_ore=True)
+    else:
+        ns = next_states(bp, state)
+
     return max(most_geodes(bp, s, mins_left - 1) for s in ns)
 
 
@@ -144,9 +152,9 @@ def run(input):
     x = 0
     for bp in bps:
         print(f"{bp.i}: ", end="", flush=True)
-        m = most_geodes(bp, init_state, 22)
+        m = most_geodes(bp, init_state, 24)
         most_geodes.cache_clear()
-        next_states.cache_clear()
+        # next_states.cache_clear()
         print(f"{m}")
         x += bp.i * m
     end = time.time()
@@ -157,17 +165,32 @@ def run(input):
 # took a fucking hour to run
 
 # finally 2301, and only took 230s
+# with part 2 optimizations, down to 129s
 
 
 def run2(input):
+    start = time.time()
     bps = [parse_line(line) for line in input.split("\n")]
-    print(2)
+    x = 1
+    minutes = 32
+    print(f"{minutes} minutes\n----------------")
+    for bp in bps[:3]:
+        print(f"{bp.i}: ", end="", flush=True)
+        m = most_geodes(bp, init_state, minutes)
+        most_geodes.cache_clear()
+        # next_states.cache_clear()
+        print(f"{m}")
+        x *= m
+    end = time.time()
+    print(f"total: {x} ({round(end-start, 1)}s)")
 
 
 print("=" * 40)
 # run(sample_input)
-# run(real_input)
+run(real_input)
 
 # print()
-run2(sample_input)
+# run2(sample_input)
 # run2(real_input)
+
+# the just_mine hack solves part 2 in 3.5s lmao
