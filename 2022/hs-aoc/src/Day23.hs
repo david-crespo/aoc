@@ -1,7 +1,6 @@
 module Day23 (part1, part2) where
 
-import Data.List (intercalate, nub)
-import Data.Tuple (swap)
+import Data.List (findIndex, intercalate, nub)
 import qualified Data.Map as M
 import qualified Data.HashSet as H
 import Data.Maybe (mapMaybe, listToMaybe, isJust)
@@ -12,7 +11,7 @@ type Grid = H.HashSet Pt
 data Dir = N | S | W | E deriving (Show, Eq)
 
 viz :: Int -> Int -> Int -> Int -> Grid -> IO ()
-viz xmin xmax ymin ymax grid = putStrLn (intercalate "\n" rows) where
+viz xmin xmax ymin ymax grid = putStrLn (intercalate "\n" rows ++ "\n") where
   rows = [ [if H.member (x, y) grid then '#' else '.' | x <- [xmin..xmax] ] | y <- [ymin..ymax] ]
 
 vizDyn :: Grid -> IO ()
@@ -92,6 +91,12 @@ part1 = do
 
 part2 :: IO ()
 part2 = do
-  -- input <- readFile "../input/day23.txt"
+  input <- readFile "../input/day23.txt"
   -- input <- readFile "../input/day23-example.txt"
-  print $ "part2"
+  -- input <- readFile "../input/day23-example0.txt"
+  let grid = parseGrid input 
+  let dirs = [N, S, W, E]
+  let steps = map fst $ iterate step (grid, dirs)
+  let pairs = zip steps (tail steps)
+  print $ fmap (+1) $ findIndex (\(a,b) -> a == b) pairs
+  
