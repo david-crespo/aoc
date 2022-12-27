@@ -55,6 +55,7 @@ library
       astar
     , base >=4.7 && <5
     , containers
+    , data-clist
     , flow
     , parsec
     , regex-tdfa
@@ -73,6 +74,7 @@ executable hs-aoc-exe
       astar
     , base >=4.7 && <5
     , containers
+    , data-clist
     , flow
     , hs-aoc
     , parsec
@@ -93,6 +95,7 @@ test-suite hs-aoc-test
       astar
     , base >=4.7 && <5
     , containers
+    , data-clist
     , flow
     , hs-aoc
     , parsec

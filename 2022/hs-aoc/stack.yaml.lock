@@ -60,4 +60,11 @@ packages:
       size: 355
   original:
     hackage: flow-2.0.0.1
+- completed:
+    hackage: data-clist-0.2@sha256:b764c5a8a7bc1bc9b7bcca7f34af911757397fbd58c0d2431dcaeb2fb88ab0d5,1226
+    pantry-tree:
+      sha256: c304b21b63ce51baadcc8e9fe00ff99dfc3834c743f10f69a5f444785f8d862a
+      size: 353
+  original:
+    hackage: data-clist-0.2
 snapshots: []

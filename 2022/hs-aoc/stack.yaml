@@ -45,6 +45,7 @@ extra-deps:
 - psqueues-0.2.7.3
 - unordered-containers-0.2.19.1
 - flow-2.0.0.1
+- data-clist-0.2
 # - git: https://github.com/commercialhaskell/stack.git
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
 #

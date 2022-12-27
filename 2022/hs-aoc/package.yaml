@@ -28,6 +28,7 @@ dependencies:
 - unordered-containers
 - parsec
 - flow
+- data-clist
 
 ghc-options:
 - -Wall
