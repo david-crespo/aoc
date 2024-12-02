@@ -1,8 +1,6 @@
-import day01
-import gleam/io
+import day02 as day
 
 pub fn main() {
-  io.println("Hello from gleamlang!")
-  day01.part1()
-  day01.part2()
+  day.part1()
+  day.part2()
 }

@@ -6,5 +6,5 @@ pub fn get_input(day day: Int) {
   let num = pad_start(int.to_string(day), to: 2, with: "0")
   // path is relative to cwd. could be done more robustly
   let assert Ok(file) = simplifile.read(from: "../input/day" <> num <> ".txt")
-  split(file, on: "\n")
+  file |> string.trim |> split(on: "\n")
 }
