@@ -37,7 +37,7 @@ fn is_safe(diffs: List(Int)) {
 }
 
 pub fn part1() {
-  let lines = util.get_input(day: 2)
+  let lines = util.get_input_lines(day: 2)
   // let lines = example |> string.trim |> string.split("\n")
 
   get_rows(lines)
@@ -46,22 +46,25 @@ pub fn part1() {
   |> io.debug
 }
 
+// there has to be a better way to do this. index_fold was worse
+fn remove_at(lst: List(item), i: Int) -> List(item) {
+  lst
+  |> list.index_map(fn(x, j) { #(j != i, x) })
+  |> list.filter(pair.first)
+  |> list.map(pair.second)
+}
+
 pub fn part2() {
-  let lines = util.get_input(day: 2)
+  let lines = util.get_input_lines(day: 2)
   // let lines = example |> string.trim |> string.split("\n")
 
   get_rows(lines)
   |> list.count(fn(row) {
     is_safe(get_diffs(row))
     || {
-      list.range(0, list.length(row) |> int.subtract(1))
-      |> list.map(fn(i) {
-        row
-        |> list.index_map(fn(x, j) { #(j != i, x) })
-        |> list.filter(pair.first)
-        |> list.map(pair.second)
-      })
-      |> list.any(fn(row) { is_safe(get_diffs(row)) })
+      list.index_map(row, fn(_item, i) { i })
+      |> list.map(fn(i) { get_diffs(remove_at(row, i)) })
+      |> list.any(is_safe)
     }
   })
   |> io.debug

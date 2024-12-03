@@ -7,7 +7,7 @@ import util
 
 fn get_lists() {
   let assert Ok(spaces) = regexp.from_string(" +")
-  util.get_input(day: 1)
+  util.get_input_lines(day: 1)
   |> list.filter(fn(line) { !string.is_empty(line) })
   |> list.map(fn(line) {
     let assert [Ok(a), Ok(b)] =

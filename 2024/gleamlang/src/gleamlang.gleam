@@ -1,4 +1,4 @@
-import day02 as day
+import day03 as day
 
 pub fn main() {
   day.part1()
