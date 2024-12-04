@@ -17,10 +17,14 @@ const down_left = #(-1, 1)
 
 const down_right = #(1, 1)
 
-pub const dirs4 = [up, down, left, right]
+// deliberate that all of these are in clockwise order
+
+pub const dirs4 = [up, right, down, left]
+
+pub const dirs_diag = [up_right, down_right, down_left, up_left]
 
 pub const dirs8 = [
-  up, down, left, right, up_left, up_right, down_left, down_right,
+  up, up_right, right, down_right, down, down_left, left, up_left,
 ]
 
 pub fn add(a: Pt, b: Pt) -> Pt {

@@ -20,19 +20,22 @@ import util
 // MXMXAXMASX
 // "
 
+fn to_grid(lines: List(String)) {
+  lines
+  |> list.index_map(fn(line, j) {
+    line
+    |> string.to_graphemes
+    |> list.index_map(fn(c, i) { #(#(i, j), c) })
+  })
+  |> list.flatten
+  |> dict.from_list
+}
+
 pub fn part1() {
   let lines = util.get_input_lines(day: 4)
   // let lines = example |> string.trim |> string.split("\n")
 
-  let grid =
-    lines
-    |> list.index_map(fn(line, j) {
-      line
-      |> string.to_graphemes
-      |> list.index_map(fn(c, i) { #(#(i, j), c) })
-    })
-    |> list.flatten
-    |> dict.from_list
+  let grid = to_grid(lines)
 
   grid
   |> dict.keys
@@ -51,6 +54,38 @@ pub fn part1() {
   |> int.sum
   |> io.debug
 }
-// pub fn part2() {
-//   todo
-// }
+
+pub fn part2() {
+  // let lines = example |> string.trim |> string.split("\n")
+
+  // 2039 too high
+  // 1956 too high
+  // 1948 (xor) also wrong, didn't say high or low
+  // 1952 (or) also wrong, didn't say high or low
+  // turns out they only wanted diagonal, not UDLR :(
+  let lines = util.get_input_lines(day: 4)
+  let grid = to_grid(lines)
+
+  grid
+  |> dict.keys
+  |> list.count(fn(point) {
+    case dict.get(grid, point) {
+      Ok("A") -> {
+        let four_points =
+          list.map(pt.dirs_diag, fn(dir) {
+            pt.add(point, dir)
+            |> dict.get(grid, _)
+            |> result.unwrap("")
+          })
+
+        four_points == ["M", "M", "S", "S"]
+        || four_points == ["S", "M", "M", "S"]
+        || four_points == ["S", "S", "M", "M"]
+        || four_points == ["M", "S", "S", "M"]
+      }
+
+      _ -> False
+    }
+  })
+  |> io.debug
+}
