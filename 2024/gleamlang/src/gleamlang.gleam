@@ -1,6 +1,6 @@
-import day04 as day
+import day05 as day
 
 pub fn main() {
-  // day.part1()
-  day.part2()
+  day.part1()
+  // day.part2()
 }

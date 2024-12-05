@@ -41,14 +41,15 @@ pub fn part1() {
   |> dict.keys
   |> list.map(fn(pt1) {
     list.count(pt.dirs8, fn(dir) {
-      let v1 = dict.get(grid, pt1) |> result.unwrap("")
+      let v1 = dict.get(grid, pt1)
       let pt2 = pt.add(pt1, dir)
-      let v2 = dict.get(grid, pt2) |> result.unwrap("")
+      let v2 = dict.get(grid, pt2)
       let pt3 = pt.add(pt2, dir)
-      let v3 = dict.get(grid, pt3) |> result.unwrap("")
+      let v3 = dict.get(grid, pt3)
       let pt4 = pt.add(pt3, dir)
-      let v4 = dict.get(grid, pt4) |> result.unwrap("")
-      v1 == "X" && v2 == "M" && v3 == "A" && v4 == "S"
+      let v4 = dict.get(grid, pt4)
+
+      { [v1, v2, v3, v4] |> result.values } == ["X", "M", "A", "S"]
     })
   })
   |> int.sum
@@ -72,11 +73,9 @@ pub fn part2() {
     case dict.get(grid, point) {
       Ok("A") -> {
         let four_points =
-          list.map(pt.dirs_diag, fn(dir) {
-            pt.add(point, dir)
-            |> dict.get(grid, _)
-            |> result.unwrap("")
-          })
+          pt.nb_diag(point)
+          |> list.map(dict.get(grid, _))
+          |> result.values
 
         four_points == ["M", "M", "S", "S"]
         || four_points == ["S", "M", "M", "S"]

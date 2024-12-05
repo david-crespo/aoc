@@ -1,3 +1,5 @@
+import gleam/list
+
 pub type Pt =
   #(Int, Int)
 
@@ -26,6 +28,18 @@ pub const dirs_diag = [up_right, down_right, down_left, up_left]
 pub const dirs8 = [
   up, up_right, right, down_right, down, down_left, left, up_left,
 ]
+
+pub fn nb4(pt: Pt) {
+  list.map(dirs4, add(pt, _))
+}
+
+pub fn nb_diag(pt: Pt) {
+  list.map(dirs_diag, add(pt, _))
+}
+
+pub fn nb8(pt: Pt) {
+  list.map(dirs8, add(pt, _))
+}
 
 pub fn add(a: Pt, b: Pt) -> Pt {
   #(a.0 + b.0, a.1 + b.1)
