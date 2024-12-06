@@ -40,47 +40,31 @@ pub fn turn(g: Guard) {
   Guard(g.pos, dir)
 }
 
-pub type Grid(t) {
-  Grid(pts: dict.Dict(#(Int, Int), t), max_x: Int, max_y: Int)
-}
-
-fn make_grid(lines: List(String)) {
-  let grid = lines |> util.to_grid
-
-  let max_y = int.subtract(list.length(lines), 1)
-  let max_x =
-    int.subtract(string.length(list.first(lines) |> result.unwrap("")), 1)
-
-  Grid(grid, max_x, max_y)
-}
+pub type Grid(t) =
+  dict.Dict(#(Int, Int), t)
 
 pub fn move(
   guard: Guard,
   trail: Set(Guard),
   grid: Grid(String),
-) -> #(Guard, Set(Guard)) {
-  case guard.pos {
-    p if p.0 >= 0 && p.0 <= grid.max_x && p.1 >= 0 && p.1 <= grid.max_y -> {
-      // if there's an obstacle in from of us, turn, otherwise step
-      let next_guard = step(guard)
-      case dict.get(grid.pts, next_guard.pos) {
-        Ok(v) -> {
-          case v {
-            "#" -> move(turn(guard), trail, grid)
-            _ -> move(next_guard, set.insert(trail, next_guard), grid)
-          }
-        }
-        _ -> #(guard, trail)
-      }
-    }
-    // if we're out of bounds, we're done!
-    _ -> #(guard, trail)
+) -> #(Guard, Set(Guard), Bool) {
+  let next_guard = step(guard)
+  let is_loop = set.contains(trail, next_guard)
+  let next_value = dict.get(grid, next_guard.pos)
+  case is_loop, next_value {
+    // if we've looped, we are done
+    True, _ -> #(guard, trail, True)
+    // if there's an obstacle in front of us, turn, otherwise step
+    _, Ok("#") -> move(turn(guard), set.insert(trail, turn(guard)), grid)
+    _, Ok(_) -> move(next_guard, set.insert(trail, next_guard), grid)
+    // if next_value is not Ok(), we've fallen off the grid
+    _, _ -> #(guard, trail, False)
   }
 }
 
-fn get_trail(grid: Grid(String)) {
+fn run(grid: Grid(String)) {
   let guard_start =
-    dict.filter(grid.pts, fn(_k, v) { v == "^" })
+    dict.filter(grid, fn(_k, v) { v == "^" })
     |> dict.keys
     |> list.first
     |> result.unwrap(#(-1, -1))
@@ -88,7 +72,7 @@ fn get_trail(grid: Grid(String)) {
   let guard_start = Guard(pos: guard_start, dir: pt.up)
 
   let trail = set.from_list([guard_start])
-  move(guard_start, trail, grid).1
+  move(guard_start, trail, grid)
 }
 
 pub fn part1() {
@@ -96,8 +80,10 @@ pub fn part1() {
   // let lines = example |> string.trim |> string.split("\n")
 
   lines
-  |> make_grid
-  |> get_trail
+  |> util.to_grid
+  |> run
+  |> fn(x) { x.1 }
+  // get trail
   // for trail purposes we only care about the positions. crossing the same
   // point with different directions is irrelevant
   |> set.map(fn(g) { g.pos })
@@ -109,18 +95,19 @@ pub fn part2() {
   let lines = util.get_input_lines(day: 6)
   // let lines = example |> string.trim |> string.split("\n")
 
-  let trail =
-    lines
-    |> make_grid
-    |> get_trail
-    |> set.map(fn(g) { g.pos })
-    |> set.size
+  let grid = lines |> util.to_grid
 
-  // For each point in the trail, we're going to try setting that point to
-  // an obstacle and then run move until we get a loop, which is defined as a
-  // repeat entry in the trail with the same direction. This means we need to
-  // start recording the direction in the trail too.
+  let trail = grid |> run |> fn(x) { x.1 } |> set.map(fn(g) { g.pos })
+
+  // For each point in the trail, make that point an an obstacle and then run
+  // until we get a loop, which is defined as a repeat entry in the trail (trail
+  // includes direction).
 
   trail
+  |> set.to_list
+  |> list.count(fn(obs) {
+    let new_grid = dict.insert(grid, obs, "#")
+    run(new_grid).2
+  })
   |> io.debug
 }
