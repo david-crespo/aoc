@@ -1,3 +1,4 @@
+import gleam/dict
 import gleam/int
 import gleam/list
 import gleam/string.{pad_start, split}
@@ -21,4 +22,18 @@ pub fn parse_int(s: String) {
 
 pub fn idx(lst: List(x), at: Int) {
   list.drop(lst, at) |> list.first
+}
+
+pub type Grid(t) =
+  dict.Dict(#(Int, Int), t)
+
+pub fn to_grid(lines: List(String)) -> Grid(String) {
+  lines
+  |> list.index_map(fn(line, j) {
+    line
+    |> string.to_graphemes
+    |> list.index_map(fn(c, i) { #(#(i, j), c) })
+  })
+  |> list.flatten
+  |> dict.from_list
 }

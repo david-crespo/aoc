@@ -3,13 +3,13 @@ import gleam/list
 pub type Pt =
   #(Int, Int)
 
-const up = #(0, -1)
+pub const up = #(0, -1)
 
-const down = #(0, 1)
+pub const down = #(0, 1)
 
-const left = #(-1, 0)
+pub const left = #(-1, 0)
 
-const right = #(1, 0)
+pub const right = #(1, 0)
 
 const up_left = #(-1, -1)
 

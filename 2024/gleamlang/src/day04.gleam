@@ -3,7 +3,6 @@ import gleam/int
 import gleam/io
 import gleam/list
 import gleam/result
-import gleam/string
 import pt
 import util
 
@@ -20,22 +19,11 @@ import util
 // MXMXAXMASX
 // "
 
-fn to_grid(lines: List(String)) {
-  lines
-  |> list.index_map(fn(line, j) {
-    line
-    |> string.to_graphemes
-    |> list.index_map(fn(c, i) { #(#(i, j), c) })
-  })
-  |> list.flatten
-  |> dict.from_list
-}
-
 pub fn part1() {
   let lines = util.get_input_lines(day: 4)
   // let lines = example |> string.trim |> string.split("\n")
 
-  let grid = to_grid(lines)
+  let grid = util.to_grid(lines)
 
   grid
   |> dict.keys
@@ -65,7 +53,7 @@ pub fn part2() {
   // 1952 (or) also wrong, didn't say high or low
   // turns out they only wanted diagonal, not UDLR :(
   let lines = util.get_input_lines(day: 4)
-  let grid = to_grid(lines)
+  let grid = util.to_grid(lines)
 
   grid
   |> dict.keys
