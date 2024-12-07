@@ -21,30 +21,13 @@ pub type Op {
   Mult
 }
 
-fn apply(a: Int, b: Int, op: Op) {
-  case op {
-    Add -> a + b
-    Mult -> a * b
-  }
-}
-
-pub fn eval(nums: List(Int), ops: List(Op)) -> Int {
-  case nums, ops {
-    [a], [] -> a
-    [a, b, ..rest_nums], [op, ..rest_ops] -> {
-      eval([apply(a, b, op), ..rest_nums], rest_ops)
-    }
-    _, _ -> panic
-  }
-}
-
-pub fn eval2(p: #(Int, List(Int))) {
+pub fn eval(p: #(Int, List(Int))) {
   let #(target, nums) = p
   case nums {
     [a] -> a == target
     [a, b, ..rest_nums] -> {
-      eval2(#(target, [a + b, ..rest_nums]))
-      || eval2(#(target, [a * b, ..rest_nums]))
+      eval(#(target, [a + b, ..rest_nums]))
+      || eval(#(target, [a * b, ..rest_nums]))
     }
     _ -> panic
   }
@@ -61,7 +44,7 @@ pub fn part1() {
     let nums = string.split(nums, " ") |> list.map(util.parse_int)
     #(v, nums)
   })
-  |> list.filter(eval2)
+  |> list.filter(eval)
   |> list.map(fn(p) { p.0 })
   |> int.sum
   |> io.debug
