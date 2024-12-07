@@ -6,6 +6,8 @@ import gleam/set.{type Set}
 import pt
 import util
 
+// import gleam/string
+
 // const example = "
 // ....#.....
 // .........#
@@ -42,44 +44,41 @@ pub type Grid(t) =
   dict.Dict(#(Int, Int), t)
 
 pub fn move(
+  grid: Grid(String),
   guard: Guard,
   trail: Set(Guard),
-  grid: Grid(String),
 ) -> #(Guard, Set(Guard), Bool) {
+  let new_trail = set.insert(trail, guard)
   let next_guard = step(guard)
   let is_loop = set.contains(trail, next_guard)
   let next_value = dict.get(grid, next_guard.pos)
   case is_loop, next_value {
     // if we've looped, we are done
-    True, _ -> #(guard, trail, True)
+    True, _ -> #(guard, new_trail, True)
     // if there's an obstacle in front of us, turn, otherwise step
-    _, Ok("#") -> move(turn(guard), set.insert(trail, turn(guard)), grid)
-    _, Ok(_) -> move(next_guard, set.insert(trail, next_guard), grid)
+    _, Ok("#") -> move(grid, turn(guard), new_trail)
+    _, Ok(_) -> move(grid, next_guard, new_trail)
     // if next_value is not Ok(), we've fallen off the grid
-    _, _ -> #(guard, trail, False)
+    _, _ -> #(guard, new_trail, False)
   }
 }
 
-fn run(grid: Grid(String)) {
-  let guard_start =
-    dict.filter(grid, fn(_k, v) { v == "^" })
-    |> dict.keys
-    |> list.first
-    |> result.unwrap(#(-1, -1))
-
-  let guard_start = Guard(pos: guard_start, dir: pt.up)
-
-  let trail = set.from_list([guard_start])
-  move(guard_start, trail, grid)
+fn get_start(grid: Grid(String)) {
+  dict.filter(grid, fn(_k, v) { v == "^" })
+  |> dict.keys
+  |> list.first
+  |> result.unwrap(#(-1, -1))
 }
 
 pub fn part1() {
   let lines = util.get_input_lines(day: 6)
   // let lines = example |> string.trim |> string.split("\n")
 
-  lines
-  |> util.to_grid
-  |> run
+  let grid = lines |> util.to_grid
+  let start = Guard(pos: get_start(grid), dir: pt.up)
+
+  grid
+  |> move(start, set.new())
   |> fn(x) { x.1 }
   // get trail
   // for trail purposes we only care about the positions. crossing the same
@@ -94,8 +93,12 @@ pub fn part2() {
   // let lines = example |> string.trim |> string.split("\n")
 
   let grid = lines |> util.to_grid
-
-  let trail = grid |> run |> fn(x) { x.1 } |> set.map(fn(g) { g.pos })
+  let start = Guard(pos: get_start(grid), dir: pt.up)
+  let trail =
+    grid
+    |> move(start, set.new())
+    |> fn(x) { x.1 }
+    |> set.map(fn(g) { g.pos })
 
   // For each point in the trail, make that point an an obstacle and then run
   // until we get a loop, which is defined as a repeat entry in the trail (trail
@@ -105,7 +108,7 @@ pub fn part2() {
   |> set.to_list
   |> list.count(fn(obs) {
     let new_grid = dict.insert(grid, obs, "#")
-    run(new_grid).2
+    move(new_grid, start, set.new()).2
   })
   |> io.debug
 }
