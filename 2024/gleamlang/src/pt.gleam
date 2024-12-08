@@ -44,3 +44,11 @@ pub fn nb8(pt: Pt) {
 pub fn add(a: Pt, b: Pt) -> Pt {
   #(a.0 + b.0, a.1 + b.1)
 }
+
+pub fn sub(a: Pt, b: Pt) -> Pt {
+  #(a.0 - b.0, a.1 - b.1)
+}
+
+pub fn scale(a: Pt, s: Int) -> Pt {
+  #(a.0 * s, a.1 * s)
+}
