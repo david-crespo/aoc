@@ -9,14 +9,19 @@ Some of these (all of 2020 and a few in 2019) were done live during the event, t
 
 In both years, I used [Julia](https://julialang.org/) a few times for brute forcing (which rarely works because the problems are designed to resist it), or sometimes if I was curious how the performance would compare. Julia is a wonderful language for AoC: you can write code without explicit type annotations, which makes it feel like Python, and then add types as needed to help the compiler speed things up.
 
-**LLM policy**: Using LLMs to write code or even to think about algorithms
-seems to me to defeat the purpose of Advent of Code. However, I have no problem
-using LLMs with web search for questions like "num to string in racket". I
-generally know what I am trying to do and just want to know how it's done in a
-given language. It's easy not to include any details from the problem. If I'm
-working in a language I know well, I would also be fine with using an LLM to
-do a well-specified but tedious inline code transformation as long as I'm not
-competing for speed in a private leaderboard.
+### LLM policy
+
+Using LLMs to write code or even to think about algorithms seems to me to defeat
+the purpose of Advent of Code. However, I have no problem using LLMs with web
+search for questions like "num to string in racket". I generally know what I am
+trying to do and just want to know how it's done in a given language. It's easy
+not to include any details from the problem. If I'm working in a language I know
+well, I would also be fine with using an LLM to do a well-specified but tedious
+inline code transformation as long as I'm not competing for speed in a private
+leaderboard. Finally, after I've completed a day and gotten the code as good
+as I'm going to get it on my own, I may ask an LLM to tell me how it could have
+been done more idiomatically. I will not commit the suggestions, but I might
+link to a gist of the response.
 
 <details>
 <summary>Actual LLM-powered searches I ran while working with Racket</summary>
